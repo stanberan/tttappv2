@@ -6,7 +6,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -20,6 +23,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
@@ -151,6 +155,30 @@ private void registerInBackground(){
 	 private class TrackStats extends AsyncTask<Void, Void,String> {
 
 			
+		 private String sendRegistrationIdToBackend(String devid,String gcmid){
+			 
+	
+			 DefaultHttpClient client=new DefaultHttpClient();
+
+				try {
+				    HttpGet request = new HttpGet("http://t3.abdn.ac.uk:8080/t3v2/1/user/register/"+devid+"/"+gcmid);
+				
+				   HttpResponse resp= client.execute(request);
+				   if(resp.getEntity()!=null){
+					   Log.e("Entity",EntityUtils.toString(resp.getEntity()));
+				   }
+				  return "StatusCode: "+ resp.getStatusLine().getStatusCode();
+			
+				} catch (Exception ex) {
+				   ex.printStackTrace();
+				   return ex.getMessage();
+				} finally {
+				 // client.close();
+				}
+		
+		 }
+		 
+		 
 			@Override
 			protected String doInBackground(Void... params) {
 				String msg = "";
@@ -165,15 +193,16 @@ private void registerInBackground(){
 			        // so it can use GCM/HTTP or CCS to send messages to your app.
 			        // The request to your server should be authenticated if your app
 			        // is using accounts.
-			        
-			     //   sendRegistrationIdToBackend();
+			    	final TelephonyManager tm = (TelephonyManager) MainActivity.this.getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
+					 String devid=tm.getDeviceId();	
+			        sendRegistrationIdToBackend(devid,regid);
 
 			        // For this demo: we don't need to send it because the device
 			        // will send upstream messages to a server that echo back the
 			        // message using the 'from' address in the message.
 
 			        // Persist the regID - no need to register again.
-			     //   storeRegistrationId(context, regid);
+			      //  storeRegistrationId(context, regid);
 			    } catch (IOException ex) {
 			        msg = "Error :" + ex.getMessage();
 			        // If there is an error, don't just keep trying to register.
@@ -188,6 +217,7 @@ private void registerInBackground(){
 		protected void onPostExecute(String msg) {
 		    mDisplay.append(msg + "\n");
 		    storeRegistrationId(context,regid);
+		    
 		}
 			 
 		 }
