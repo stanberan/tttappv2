@@ -23,7 +23,7 @@
     <application
      android:name="uk.ac.abdn.t3.t3v2app.AppController"
         android:allowBackup="true"
-        android:icon="@drawable/ic_stat_t3_nfc_blue_transparent_notification"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light" >
         <meta-data

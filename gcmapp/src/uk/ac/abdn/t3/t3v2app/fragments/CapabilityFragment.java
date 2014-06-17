@@ -125,7 +125,10 @@ public class CapabilityFragment extends Fragment {
 		public JSONObject sortCapabilities(JSONObject allcapabilities){
 		try{
 			Log.e("CapFrag", "Capabiliities"+allcapabilities.toString());
-			JSONArray newcap=allcapabilities.getJSONArray("newcapabilities");
+			JSONArray newcap=new JSONArray();
+			if(allcapabilities.has("newcapabilities")){
+				newcap=allcapabilities.getJSONArray("newcapabilities");
+			}
 			JSONArray jsonArray=allcapabilities.getJSONArray("currentCapabilities");
 			
 			JSONObject sorted=new JSONObject();
@@ -167,19 +170,19 @@ public class CapabilityFragment extends Fragment {
 				
 			}
 			if(sharing.length()>0){
-			sorted.put("sharingarray",sharing);
+		//	sorted.put("sharingarray",sharing);
 			}
 			if(collection.length()>0){
-			sorted.put("collectionarray",collection);
+	//		sorted.put("collectionarray",collection);
 			}
 			if(usage.length()>0){
-			sorted.put("usagearray", usage);
+			//sorted.put("usagearray", usage);
 			}
 			if(generation.length()>0){
 			sorted.put("generationarray", generation);
 			}
 			if(billing.length()>0){
-			sorted.put("billingarray", billing);
+		//	sorted.put("billingarray", billing);
 			}
 			Log.e("OVERVIEW", sorted.toString());
 			return sorted;

@@ -5,11 +5,19 @@ import uk.ac.abdn.t3.t3v2app.R.drawable;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 
+
+
+
+
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
@@ -68,6 +76,11 @@ public class GcmIntentService extends IntentService {
         // Release the wake lock provided by the WakefulBroadcastReceiver.
         GcmBroadcastReceiver.completeWakefulIntent(intent);
     }
+    private Bitmap getBitmap(int id) {
+        Drawable myIcon = getResources().getDrawable(id );//hope so id == R.drawable.youricon
+        Bitmap bitmap = ((BitmapDrawable)myIcon ).getBitmap();
+        return bitmap;
+    }
 
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
@@ -78,10 +91,12 @@ public class GcmIntentService extends IntentService {
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, MainActivity.class), 0);
+    
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
         .setSmallIcon(R.drawable.ic_stat_t3_nfc_blue_transparent_notification)
+        .setLargeIcon(getBitmap(R.drawable.ic_launcher))
         .setContentTitle("New Capabilities Detected!")
         .setStyle(new NotificationCompat.BigTextStyle()
         .bigText(msg))
