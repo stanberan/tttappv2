@@ -37,8 +37,9 @@ public class Dialogs {
 		                new Response.Listener<JSONObject>() {
 		                    @Override
 		                    public void onResponse(JSONObject response) {
+		                    	  pDialog.hide();   
 		                     getCompanyDialog(response,c);
-		                         
+		                    
 		                    }
 		                }, new Response.ErrorListener() {
 		                    @Override
@@ -81,14 +82,14 @@ public class Dialogs {
 			dialog.findViewById(R.id.label_email).setVisibility(View.VISIBLE);
 			}
 			TextView url=(TextView)dialog.findViewById(R.id.company_website);
-			if(!res.getString("url").equals("null")){
-			url.setText(res.getString("url"));
+			if(!res.getString("web").equals("null")){
+			url.setText(res.getString("web"));
 			url.setVisibility(View.VISIBLE);
 			dialog.findViewById(R.id.label_website).setVisibility(View.VISIBLE);
 			}
 			TextView phone=(TextView)dialog.findViewById(R.id.company_phone);
 			if(!res.getString("tel").equals("null")){
-			phone.setText(res.getString("telNumber"));
+			phone.setText(res.getString("tel"));
 			phone.setVisibility(View.VISIBLE);
 			dialog.findViewById(R.id.label_phone).setVisibility(View.VISIBLE);
 			}

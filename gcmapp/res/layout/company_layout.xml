@@ -33,7 +33,7 @@ android:layout_height="300dp"
            />
     
         
-        <uk.ac.abdn.t3.trustedtinythings.StyledTextView
+        <TextView
             android:layout_weight="1"
                 android:id="@+id/address"
            
@@ -49,7 +49,7 @@ android:layout_height="300dp"
    
        <!-- Email -->
        
-       <uk.ac.abdn.t3.trustedtinythings.StyledTextView
+       <TextView
        android:text="Email"
        android:id="@+id/label_email"
        android:layout_width="match_parent"
@@ -59,7 +59,7 @@ android:layout_height="300dp"
        android:textStyle="bold"
        />
     
-     <uk.ac.abdn.t3.trustedtinythings.StyledTextView
+     <TextView
        android:background="@drawable/search_bg_shadow"
        android:text=""
             style="@style/nowCardStyle"
@@ -75,7 +75,7 @@ android:layout_height="300dp"
        
           <!-- URL -->
        
-       <uk.ac.abdn.t3.trustedtinythings.StyledTextView
+       <TextView
        android:text="Link to Website"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -85,7 +85,7 @@ android:layout_height="300dp"
          android:visibility="gone"
        />
     
-     <uk.ac.abdn.t3.trustedtinythings.StyledTextView
+     <TextView
        android:background="@drawable/search_bg_shadow"
        android:text=""
             style="@style/nowCardStyle"
@@ -100,7 +100,7 @@ android:layout_height="300dp"
        />
          <!-- PHONE -->
        
-       <uk.ac.abdn.t3.trustedtinythings.StyledTextView
+       <TextView
        android:text="Contact Number"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -110,7 +110,7 @@ android:layout_height="300dp"
          
        />
     
-     <uk.ac.abdn.t3.trustedtinythings.StyledTextView
+     <TextView
        android:background="@drawable/search_bg_shadow"
        android:text=""
             style="@style/nowCardStyle"

@@ -12,12 +12,13 @@ public class PDGViewHolder {
 	ImageView logo;
 	ImageView newcap;
 	TextView count;
-	String comp_uri;
+	String uri;
 	  PDGViewHolder(View row) {
 	    this.desc=(TextView)row.findViewById(R.id.text_type);
 	    this.logo=(ImageView)row.findViewById(R.id.image_pdg_logo);
 	    this.newcap=(ImageView)row.findViewById(R.id.image_new);
 	    this.count=(TextView)row.findViewById(R.id.text_pdg_count);
+	    
 	  }
 	}
 

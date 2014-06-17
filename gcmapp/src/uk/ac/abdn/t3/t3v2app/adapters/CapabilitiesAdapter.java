@@ -13,6 +13,7 @@ import uk.ac.abdn.t3.t3v2app.AppController;
 import uk.ac.abdn.t3.t3v2app.Dialogs;
 import uk.ac.abdn.t3.t3v2app.R;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import android.widget.BaseExpandableListAdapter;
 
 public class CapabilitiesAdapter extends BaseExpandableListAdapter {
 	JSONObject capabilities;
-	LayoutInflater inflater;
+	static LayoutInflater inflater;
 	Context c;
 	String PDG="generationarray";
 	String PDU="usagearray";
@@ -40,6 +41,7 @@ public class CapabilitiesAdapter extends BaseExpandableListAdapter {
 	public Object getChild(int groupPosition, int childPosition) {
 	 try{
 		 JSONArray children=getChildren(groupPosition);
+		 Log.e("CHILD", children.toString());
 		 return (children.get(childPosition));
 	 }catch(Exception e){
 		 e.printStackTrace();
@@ -58,7 +60,13 @@ public class CapabilitiesAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+		String groupType=getGroup(groupPosition).toString();
+		 Log.e("CHILD","IS PDGeneration?");
+		if(groupType.equals(PDG)){
+			 Log.e("CHILD","YES");
+			return getPDGChildView(groupPosition,childPosition,isLastChild,convertView,parent);
+		}
+		 Log.e("CHILD","NO");
 		return null;
 	}
 
@@ -232,19 +240,19 @@ public int getGroupTypeCount(){
 		
 		try{
 		JSONObject object=(JSONObject)getChild(groupPosition,0);
-		
-		holder.count.setText(getChildrenCount(groupPosition));
-		holder.comp_uri=object.getString("generatedBy");
+		Log.e("ADAPTER", object.toString());
+		holder.uri=object.getString("uri");
+		holder.count.setText(""+getChildrenCount(groupPosition));
 		holder.desc.setText(object.getString("type").substring(AppController.TTT_NS.length()));
-		Picasso.with(c).load(object.getString("logo")).resize(45, 45).into(holder.logo);
+		Picasso.with(c).load(object.getString("generatedBy_logo")).resize(200, 200).into(holder.logo);
 		
 		
 		holder.logo.setOnClickListener(new View.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-			 PDGViewHolder h =(PDGViewHolder) v.getTag();
-			 Dialogs.getCompanyData(h.comp_uri,c);	
+				PDGViewHolder hol=(PDGViewHolder)v.getTag();
+			 Dialogs.getCompanyData(hol.uri,c);	
 			}
 			
 		});
@@ -272,10 +280,10 @@ public int getGroupTypeCount(){
 	public View getPDGChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent){
 		View row=convertView;
-		
-		if(row==null){
+		Log.e("CHILD", "INSIDE GET CHILD VIEW");
+		//if(row==null){
 			row=inflater.inflate(R.layout.row_capability_pdg, parent,false);
-		}
+		//}
 		
 		PDGRowViewHolder holder=(PDGRowViewHolder)row.getTag();
 		
@@ -286,6 +294,7 @@ public int getGroupTypeCount(){
 		
 		try{
 		JSONObject object=(JSONObject)getChild(groupPosition,childPosition);
+		Log.e("GETCHILD", object.toString());
 		
 		holder.desc.setText(object.getString("data_desc"));
 		

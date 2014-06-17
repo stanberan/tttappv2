@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -57,7 +58,7 @@ public class CapabilityFragment extends Fragment {
 				final ProgressDialog pDialog = new ProgressDialog(getActivity());
 				pDialog.setMessage("Retrieving Capabilities");
 				pDialog.show();     
-				         
+				  
 				        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET,
 				                getCapURL, null,
 				                new Response.Listener<JSONObject>() {
@@ -67,7 +68,7 @@ public class CapabilityFragment extends Fragment {
 				                        Log.d("SUCCESS", response.toString());
 				                        JSONObject sorted=sortCapabilities(response);
 				                        CapabilitiesAdapter ad=new CapabilitiesAdapter(sorted,inflater,getActivity());
-        
+				                        elv.setAdapter(ad);
 				                        pDialog.hide();
 				                    }
 				                }, new Response.ErrorListener() {
@@ -80,6 +81,11 @@ public class CapabilityFragment extends Fragment {
 				                        pDialog.hide();
 				                    }
 				                });
+				        
+				       jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
+				                1000*60*1, 
+				                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, 
+				                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)); 
 				 
 				// Adding request to request queue
 				AppController.getInstance().addToRequestQueue(jsonObjReq, "tag_json_obj");
@@ -100,8 +106,11 @@ public class CapabilityFragment extends Fragment {
 		
 		public boolean exist(JSONObject j,JSONArray array){
 			try{
+				String jstring=j.toString();
 			for(int i=0; i<array.length();i++){
-				if(array.getJSONObject(i).equals(j)){
+			
+				String arraystring=array.getJSONObject(i).toString();
+				if(jstring.equalsIgnoreCase(arraystring)){
 					
 					return true;
 				}
@@ -115,6 +124,7 @@ public class CapabilityFragment extends Fragment {
 
 		public JSONObject sortCapabilities(JSONObject allcapabilities){
 		try{
+			Log.e("CapFrag", "Capabiliities"+allcapabilities.toString());
 			JSONArray newcap=allcapabilities.getJSONArray("newcapabilities");
 			JSONArray jsonArray=allcapabilities.getJSONArray("currentCapabilities");
 			
@@ -129,9 +139,12 @@ public class CapabilityFragment extends Fragment {
 			
 			for(int i=0; i<jsonArray.length();i++){
 				JSONObject capabilityjson=jsonArray.getJSONObject(i);
+				Log.e("CAPCURRENT", capabilityjson.toString() );
 				String type=capabilityjson.getString("type");
-				
+				Log.e("TYPE", type);
+				Log.e("ALL",AppController.PDG_TYPE);
 				if(exist(capabilityjson,newcap)){
+					Log.e("EXIST", "CapExist");
 					capabilityjson.put("new", true);
 				}
 				
