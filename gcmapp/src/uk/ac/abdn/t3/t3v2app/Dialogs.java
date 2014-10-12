@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.squareup.picasso.Picasso;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -22,6 +23,10 @@ import android.widget.Toast;
 
 public class Dialogs {
 
+	
+	
+	
+	
 	
 	public static  void getCompanyData(String uri,final Context c){
 		String tag_json_ob="tag_json_ob";
@@ -59,6 +64,19 @@ public class Dialogs {
 		
 		
 		
+	}
+	
+	public static void createPersonalDialog(String data, Context c){
+		// 1. Instantiate an AlertDialog.Builder with its constructor
+		AlertDialog.Builder builder = new AlertDialog.Builder(c);
+
+		// 2. Chain together various setter methods to set the dialog characteristics
+		builder.setMessage(data)
+		       .setTitle("Personal Data");    //TODO hard coded personal data title
+
+		// 3. Get the AlertDialog from create()
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 	
 	private static void getCompanyDialog(JSONObject res,Context c){

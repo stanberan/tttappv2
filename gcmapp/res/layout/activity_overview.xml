@@ -3,18 +3,26 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="core.OverviewActivity"
     tools:ignore="MergeRootFrame" 
-    android:weightSum="100">
+>
     
-    <FrameLayout 
-        android:id="@+id/personal_data_container"
+   
+    <LinearLayout android:id="@+id/personalData_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="30"    />
-       <FrameLayout 
-        android:id="@+id/personal_data_container"
+        android:orientation="horizontal"
+        
+        ></LinearLayout>
+    
+      
+    <LinearLayout android:id="@+id/companies_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="70"    />
+        android:orientation="horizontal"
+        
+        ></LinearLayout>
+    
+    
     </LinearLayout>
