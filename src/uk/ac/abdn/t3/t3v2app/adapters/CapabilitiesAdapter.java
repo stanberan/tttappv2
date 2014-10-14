@@ -114,7 +114,7 @@ public class CapabilitiesAdapter extends BaseExpandableListAdapter {
 	@Override
 	public Object getGroup(int groupPosition) {		
 		@SuppressWarnings("unchecked")
-		Iterator<e> i=capabilities.keys();
+		Iterator<String> i=capabilities.keys();
 		while(groupPosition > 0){
 			i.next(); 
 			groupPosition--;

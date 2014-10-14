@@ -85,7 +85,7 @@ JSONArray personalData=null;
 	public void getCompanies(){
 		
 		String tag_json_arry = "json_array_req";
-		String url = "http://t3.abdn.ac.uk:8080/t3v2/1/device/"+AppController.DEV_ID+"/companies";
+		String url = AppController.HOST+"t3v2/1/device/"+AppController.DEV_ID+"/companies";
 		JsonArrayRequest req = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -111,7 +111,7 @@ AppController.getInstance().addToRequestQueue(req, tag_json_arry);
 	public void getPersonalData(View v){
 		Log.e("PDC", "CLICKED");
 		String tag_json_arry = "json_array_req";
-		String url = "http://t3.abdn.ac.uk:8080/t3v2/1/device/"+AppController.DEV_ID+"/personaldata/all";
+		String url = AppController.HOST+"t3v2/1/device/"+AppController.DEV_ID+"/personaldata/all";
 		     
 		
 	//	StringRequest stringRequest = new StringRequest(Method.POST,

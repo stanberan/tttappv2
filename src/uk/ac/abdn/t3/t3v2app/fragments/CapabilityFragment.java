@@ -53,7 +53,7 @@ public class CapabilityFragment extends Fragment {
 			try{
 		Intent i=	getActivity().getIntent();
 			if(i!=null && i.getStringExtra("caller")!=null && i.getStringExtra("caller").equals("nfc")){
-				String getCapURL="http://t3.abdn.ac.uk:8080/t3v2/1/device/"+AppController.DEV_ID+"/check/capabilities/"+AppController.UID;
+				String getCapURL=AppController.HOST+"t3v2/1/device/"+AppController.DEV_ID+"/check/capabilities/"+AppController.UID;
 				
 				final ProgressDialog pDialog = new ProgressDialog(getActivity());
 				pDialog.setMessage("Retrieving Capabilities");
