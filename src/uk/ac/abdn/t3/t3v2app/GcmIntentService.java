@@ -1,5 +1,7 @@
 package uk.ac.abdn.t3.t3v2app;
 
+import java.util.Date;
+
 import uk.ac.abdn.t3.t3v2app.R.drawable;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -21,7 +23,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
+import android.text.format.DateFormat;
 import android.util.Log;
+import android.widget.Toast;
 
 public class GcmIntentService extends IntentService {
     public static final int NOTIFICATION_ID = 1;
@@ -50,27 +54,19 @@ public class GcmIntentService extends IntentService {
              */
             if (GoogleCloudMessaging.
                     MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-                sendNotification("Send error: " + extras.toString());
+                sendNotification(extras);
             } else if (GoogleCloudMessaging.
                     MESSAGE_TYPE_DELETED.equals(messageType)) {
-                sendNotification("Deleted messages on server: " +
-                        extras.toString());
+                sendNotification(extras);
             // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.
                     MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-                // This loop represents the service doing some work.
-                for (int i=0; i<5; i++) {
-                    Log.i(TAG, "Working... " + (i+1)
-                            + "/5 @ " + SystemClock.elapsedRealtime());
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                    }
-                }
-                Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
-                // Post notification of received message.
-                sendNotification("Received: " + extras.toString());
-                Log.i(TAG, "Received: " + extras.toString());
+               
+              
+                sendNotification(extras);
+                Log.e("NOTIFICATION", "Received: " + extras.toString());
+              //  Toast.makeText(AppController.getInstance().context, extras.toString(), Toast.LENGTH_LONG).show();
+                
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
@@ -85,13 +81,23 @@ public class GcmIntentService extends IntentService {
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
     // a GCM message.
-    private void sendNotification(String msg) {
+    private void sendNotification(Bundle b) {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
+Intent i=new Intent(this,OverviewActivity.class);
+//add extras from t3 server
+i.putExtras(b);
+i.putExtra("caller", "notification");
+//get times and display in not.
+long ms=Long.parseLong(b.getString("time"));
+String pattern="MM/dd/yyyy HH:mm:ss";
+String sent=DateFormat.format(pattern, new Date(ms)).toString();
+String received=DateFormat.format(pattern, new Date()).toString();
+
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, MainActivity.class), 0);
-    
+                i, PendingIntent.FLAG_CANCEL_CURRENT);
+
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -99,8 +105,8 @@ public class GcmIntentService extends IntentService {
         .setLargeIcon(getBitmap(R.drawable.ic_launcher))
         .setContentTitle("New Capabilities Detected!")
         .setStyle(new NotificationCompat.BigTextStyle()
-        .bigText(msg))
-        .setContentText(msg);
+        .bigText("Notification sent:"+sent+"\nNotification received:"+received))
+        .setContentText(b.getString("message"));
 
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());

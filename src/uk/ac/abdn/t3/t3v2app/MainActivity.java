@@ -10,6 +10,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import uk.ac.abdn.t3.t3v2app.R;
 import uk.ac.abdn.t3.t3v2app.R.layout;
@@ -35,19 +36,25 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 private String registrationID="APA91bHnDj_OEW0F3AzuNvqUnMB9N4HDr341LF4XOdQt3M9i_owjmgFrgdD2S6GobFd92a5I16SztYYYFhO9pa6wGLJZxV7MeOP5mIXMw3BmQpNeBKCFuEdjlIJvd79vxKEqamkz8Q0UJnlpt5kYX-NyKF-yjIGdtQ";
 	
-
+JSONObject j;
+TextView output;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		output=(TextView)findViewById(R.id.main_output_view);
 		
 		
 		
 		Bundle extras=getIntent().getExtras();
-		Log.e("something","ssssss");
-		Log.e("MAIN", extras.getString("caller"));
-		Log.e("MAIN", extras.getString("devid"));
+		output.setText(extras.toString());
+		
+		if(extras.containsKey("devid")){
+			AppController.DEV_ID=extras.getString("devid");
+			Log.e("MainActivity", "Assigned Global ID:"+ AppController.DEV_ID);
+		}
+	
+		
 		
 
 	}

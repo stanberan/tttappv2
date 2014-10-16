@@ -28,7 +28,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
  
 public class AppController extends Application {
- public static String DEV_ID="simbbox003";
+ public static String DEV_ID="simbbox001";
 	private String registrationID="APA91bHnDj_OEW0F3AzuNvqUnMB9N4HDr341LF4XOdQt3M9i_owjmgFrgdD2S6GobFd92a5I16SztYYYFhO9pa6wGLJZxV7MeOP5mIXMw3BmQpNeBKCFuEdjlIJvd79vxKEqamkz8Q0UJnlpt5kYX-NyKF-yjIGdtQ";
 	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	public static String TTT_NS="http://t3.abdn.ac.uk/ontologies/t3.owl#";
@@ -39,7 +39,7 @@ public class AppController extends Application {
 	public static String BIL_TYPE=TTT_NS+"BillingCap";
 	public static String PDS_TYPE=TTT_NS+"PersonalDataSharing";
 	
-	public static String HOST="http://crowddata.abdn.ac.uk:8080/";
+	public static String HOST="http://t3.abdn.ac.uk:8080/";
 	
 	 public static final String EXTRA_MESSAGE = "message";
 	 public static String UID;
@@ -130,7 +130,7 @@ public class AppController extends Application {
     
     
     private void registerInBackground(){
-    	new TrackStats().execute();
+    	new RegisterGCM().execute();
     }
     	private String getRegistrationId(Context context) {
     	    final SharedPreferences prefs = getGCMPreferences(context);
@@ -197,7 +197,7 @@ public class AppController extends Application {
     	    }
     	    return true;
     	}
-    	 private class TrackStats extends AsyncTask<Void, Void,String> {
+    	 private class RegisterGCM extends AsyncTask<Void, Void,String> {
 
     			
     		 private String sendRegistrationIdToBackend(String devid,String gcmid){

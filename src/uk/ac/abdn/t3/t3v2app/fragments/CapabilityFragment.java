@@ -10,12 +10,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.games.request.Requests;
 
 import uk.ac.abdn.t3.t3v2app.AppController;
+import uk.ac.abdn.t3.t3v2app.Helpers;
+import uk.ac.abdn.t3.t3v2app.Loader;
 import uk.ac.abdn.t3.t3v2app.R;
 import uk.ac.abdn.t3.t3v2app.adapters.CapabilitiesAdapter;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -23,10 +27,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.ListView;
+import android.widget.TextView;
 
-public class CapabilityFragment extends Fragment {
+public class CapabilityFragment extends Fragment implements Loader {
 
-	ExpandableListView elv;
+ListView elv;
+ImageView loader;
+TextView output;
+
    LayoutInflater inflater;
 		public CapabilityFragment() {
 		}
@@ -35,13 +46,19 @@ public class CapabilityFragment extends Fragment {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 		this.inflater=inflater;
+		
 			View rootView = inflater.inflate(R.layout.fragment_overview,
 					container, false);
-		elv=(ExpandableListView)	rootView.findViewById(R.id.capabilities_list);
 			
+		elv=(ListView)rootView.findViewById(R.id.headers_list);
+		loader=(ImageView)rootView.findViewById(R.id.headers_loader);
+		output=(TextView) rootView.findViewById(R.id.headers_output);
+		startLoad();
+		
+		
 			getCapabilities();
 			
-	
+
 			
 			
 			
@@ -49,15 +66,14 @@ public class CapabilityFragment extends Fragment {
 			return rootView;
 		}
 		
+		
 		public void getCapabilities(){
 			try{
 		Intent i=	getActivity().getIntent();
-			if(i!=null && i.getStringExtra("caller")!=null && i.getStringExtra("caller").equals("nfc")){
+			
 				String getCapURL=AppController.HOST+"t3v2/1/device/"+AppController.DEV_ID+"/check/capabilities/"+AppController.UID;
 				
-				final ProgressDialog pDialog = new ProgressDialog(getActivity());
-				pDialog.setMessage("Retrieving Capabilities");
-				pDialog.show();     
+			  
 				  
 				        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET,
 				                getCapURL, null,
@@ -67,9 +83,15 @@ public class CapabilityFragment extends Fragment {
 				                    public void onResponse(JSONObject response) {
 				                        Log.d("SUCCESS", response.toString());
 				                        JSONObject sorted=sortCapabilities(response);
-				                        CapabilitiesAdapter ad=new CapabilitiesAdapter(sorted,inflater,getActivity());
-				                        elv.setAdapter(ad);
-				                        pDialog.hide();
+				                       // CapabilitiesAdapter ad=new CapabilitiesAdapter(sorted,inflater,getActivity());
+				                     //.setAdapter(ad);
+				                        try {
+											output.setText(response.toString(5));
+										} catch (JSONException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+				                      stopLoad();
 				                    }
 				                }, new Response.ErrorListener() {
 				 
@@ -78,7 +100,7 @@ public class CapabilityFragment extends Fragment {
 				                        VolleyLog.d("ERROR", "Error: " + error.getMessage());
 				                        // hide the progress dialog
 				                        
-				                        pDialog.hide();
+				                   stopLoad();
 				                    }
 				                });
 				        
@@ -90,11 +112,7 @@ public class CapabilityFragment extends Fragment {
 				// Adding request to request queue
 				AppController.getInstance().addToRequestQueue(jsonObjReq, "tag_json_obj");
 				
-				
-				
-				
-			}
-			
+		
 			
 			
 			}
@@ -199,6 +217,20 @@ public class CapabilityFragment extends Fragment {
 			}
 			return error;
 		}
+		}
+
+		@Override
+		public void startLoad() {
+		loader.setVisibility(View.VISIBLE);
+		Helpers.rotateImage(loader,getActivity());
+			
+		}
+
+		@Override
+		public void stopLoad() {
+		loader.setVisibility(View.GONE);
+		loader.clearAnimation();
+			
 		}
 		
 		

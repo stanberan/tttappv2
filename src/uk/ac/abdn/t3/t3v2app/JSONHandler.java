@@ -11,10 +11,10 @@ import com.android.volley.VolleyLog;
 import com.android.volley.Request.Method;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-public class JSONHandler {
+public interface JSONHandler {
 
 	
-
+public void parseJson(JSONObject j) throws Exception;
 		
 		
 		

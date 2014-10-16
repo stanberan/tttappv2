@@ -1,0 +1,206 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<uk.ac.abdn.t3.t3v2app.CustomLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".DeviceDetailsActivity" >
+
+    
+         
+       <TextView
+            android:layout_weight="1"
+                android:id="@+id/details_thing_name"
+                  android:background="@drawable/search_bg_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+          android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        
+        />
+    
+    
+   <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        style="@style/nowCardStyle"
+        android:background="@drawable/search_bg_shadow"
+        android:id="@+id/details_device_image_name_layout"
+         android:divider="@drawable/mydivider"
+        android:showDividers="middle"
+        android:dividerPadding="22dp">
+   
+       
+        <TextView
+            android:layout_weight="1"
+                android:id="@+id/details_device_description"
+           
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+          android:gravity="center"
+        android:textSize="16sp"
+       
+      
+        />
+    
+     <ImageView
+        	android:layout_weight="1"
+          android:id="@+id/details_device_image_view"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+       
+           />
+    </LinearLayout>
+    
+   
+   
+   
+       <!--DEVICE Sec Desc CARD  -->
+   <TextView
+       android:text="Security Description"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:gravity="center"    
+       android:textStyle="bold"
+       />
+   
+    <LinearLayout android:layout_width="match_parent"
+             style="@style/nowCardStyle"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/search_bg_shadow"
+         android:divider="@drawable/mydivider"
+        android:showDividers="middle"
+        android:dividerPadding="22dp">
+        
+        <TextView
+            android:layout_weight="1"
+                android:id="@+id/details_security_desc"
+                
+           
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         
+          android:gravity="center"
+        android:textSize="15sp"
+       
+      
+        />
+
+   </LinearLayout>
+   
+  
+   
+   
+   
+    <!--DEVICE OWNER CARD  -->
+   <TextView
+       android:text="DEVICE OWNER"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:gravity="center"    
+       android:textStyle="bold"
+       />
+   
+    <LinearLayout android:layout_width="match_parent"
+             style="@style/nowCardStyle"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/search_bg_shadow"
+         android:divider="@drawable/mydivider"
+        android:showDividers="middle"
+        android:dividerPadding="22dp">
+        
+        <TextView
+            android:layout_weight="1"
+                android:id="@+id/details_device_owner_title"
+                
+           
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         
+          android:gravity="center"
+        android:textSize="15sp"
+       
+      
+        />
+     <ImageView
+        	android:layout_weight="1"
+          android:id="@+id/details_device_owner_image_view"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+       
+           />
+    </LinearLayout>
+    
+      <!--DEVICE MANUFCATURER CARD  -->
+   <TextView
+       android:text="DEVICE MANUFACTURER"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+         android:gravity="center"
+       android:textStyle="bold"
+       />
+   
+    <LinearLayout android:layout_width="match_parent"
+             style="@style/nowCardStyle"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/search_bg_shadow"
+         android:divider="@drawable/mydivider"
+        android:showDividers="middle"
+        android:dividerPadding="22dp">
+        
+        <TextView
+            android:layout_weight="1"
+                android:id="@+id/details_device_manufacturer_title"
+                
+           
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+          android:gravity="center_vertical"
+          android:layout_gravity="center_vertical"
+        android:textSize="15sp"
+     
+      
+        />
+     <ImageView
+        	android:layout_weight="1"
+          android:id="@+id/details_device_manufacturer_image_view"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+       
+           />
+    </LinearLayout>
+       <!--DEVICE TYPE  -->
+   <TextView
+       android:text="DEVICE TYPE"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+   
+       android:gravity="center"
+       android:textStyle="bold"
+       />
+    
+     <TextView
+       android:background="@drawable/search_bg_shadow"
+       android:text=""
+            style="@style/nowCardStyle"
+       android:id="@+id/details_device_type"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:textStyle="bold"
+       android:gravity="center"
+       android:textColor="@color/black"
+       />
+
+</uk.ac.abdn.t3.t3v2app.CustomLayout >
+</ScrollView>

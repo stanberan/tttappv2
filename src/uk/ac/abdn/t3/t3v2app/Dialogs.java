@@ -79,6 +79,57 @@ public class Dialogs {
 		dialog.show();
 	}
 	
+	
+public static void getDescriptionDialog(JSONObject res, Context c){
+	if(res==null){
+		Toast.makeText(c, "Nothing to show!", Toast.LENGTH_LONG).show();
+	}
+	
+		 try{
+			 final Dialog dialog = new Dialog(c);
+				dialog.setContentView(R.layout.dialog_description);
+				dialog.setTitle(res.getString("name"));
+				dialog.setCanceledOnTouchOutside(true);
+		
+				
+				TextView name = (TextView) dialog.findViewById(R.id.details_thing_name);
+				TextView dev_desc = (TextView) dialog.findViewById(R.id.details_device_description);
+				TextView sec_desc = (TextView) dialog.findViewById(R.id.details_security_desc);
+				TextView dev_owner_name = (TextView) dialog.findViewById(R.id.details_device_owner_title);
+				TextView dev_man_name = (TextView) dialog.findViewById(R.id.details_device_manufacturer_title);
+				TextView dev_type = (TextView) dialog.findViewById(R.id.details_device_type);
+				
+				name.setText(res.getString("name"));
+				dev_desc.setText(res.getString("deviceDescription"));
+				sec_desc.setText(res.getString("securityDescription"));
+				dev_owner_name.setText(res.getString("own_name"));
+				dev_man_name.setText(res.getString("man_name"));
+				dev_type.setText(res.getString("typeDescription"));
+				
+				ImageView dev_image = (ImageView) dialog.findViewById(R.id.details_device_image_view);
+				Picasso.with(c).load(res.getString("logo")).into(dev_image);
+				
+				ImageView man_image = (ImageView) dialog.findViewById(R.id.details_device_manufacturer_image_view);
+				Picasso.with(c).load(res.getString("manufacturerLogo")).placeholder(R.drawable.ic_new).into(man_image);
+				ImageView own_image = (ImageView) dialog.findViewById(R.id.details_device_owner_image_view);
+				Picasso.with(c).load(res.getString("ownerLogo")).placeholder(R.drawable.ic_new).into(own_image);
+				
+				
+				
+				 dialog.show();	
+				
+				
+				
+				
+				
+		 }
+				catch(Exception e){
+					e.printStackTrace();
+				}
+		
+		
+		
+	}
 	private static void getCompanyDialog(JSONObject res,Context c){
 		
 		

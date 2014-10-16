@@ -93,6 +93,7 @@ static String uid;
 				s.putExtra("caller","nfc");
 				
 				String devid=urlAction.substring(35);	
+				AppController.DEV_ID=devid;
 				s.putExtra("devid", devid);
 				startActivity(s);
 				}
