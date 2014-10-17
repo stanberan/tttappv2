@@ -10,6 +10,7 @@ import uk.ac.abdn.t3.t3v2app.R;
 import uk.ac.abdn.t3.t3v2app.ViewHolder;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ public class HeadersAdapter extends BaseAdapter {
 	JSONArray children;
 	
 	
-	static LayoutInflater inflater;
+	LayoutInflater inflater;
 	Context c;
 	public static String TTT_NS = "http://t3.abdn.ac.uk/ontologies/t3.owl#";
 	public static String PDC_TYPE = TTT_NS + "PersonalDataCollection";
@@ -91,7 +92,7 @@ public class HeadersAdapter extends BaseAdapter {
 	@Override
 	public Object getItem(int position) {
 		try {
-			return headers.get(position);
+			return headers.getJSONObject(position);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,13 +120,13 @@ public class HeadersAdapter extends BaseAdapter {
                    holder.newCap=(ImageView)convertView.findViewById(R.id.image_new_pdu);
                      break;
                  case PDG:
-                	 convertView = inflater.inflate(R.layout.header_capability_pdg, null);
+                	 convertView = inflater.inflate(R.layout.header_capability_pdg,null);
                      holder.count=(TextView)convertView.findViewById(R.id.text_pdg_count);
                      holder.company=(ImageView)convertView.findViewById(R.id.image_pdg_logo);
                      holder.newCap=(ImageView)convertView.findViewById(R.id.image_new_pdg);
                      break;
                  case PDS:
-                	 convertView = inflater.inflate(R.layout.header_capability_pds, null);
+                	 convertView = inflater.inflate(R.layout.header_capability_pds,null);
                      holder.count=(TextView)convertView.findViewById(R.id.text_pds_count);
                      holder.company=(ImageView)convertView.findViewById(R.id.image_pds_logo);
                      holder.newCap=(ImageView)convertView.findViewById(R.id.image_new_pds);
@@ -148,7 +149,11 @@ public class HeadersAdapter extends BaseAdapter {
              holder = (ViewHolder)convertView.getTag();
          }
          try{
-        holder.count.setText(children.getJSONArray(position).length());
+        	 int length=children.getJSONArray(position).length();
+        	 String logo=headers.getJSONObject(position).getString("company_logo");
+        	 boolean isnew=headers.getJSONObject(position).has("new");
+        	 Log.e("Check values", ""+length+" "+logo+"isnew"+isnew);
+        holder.count.setText(String.valueOf(length));
         Picasso.with(c).load(headers.getJSONObject(position).getString("company_logo")).fit().placeholder(R.drawable.ic_new).into(holder.company);
        if(headers.getJSONObject(position).has("new")){
     	holder.newCap.setVisibility(View.VISIBLE);   
@@ -160,6 +165,11 @@ public class HeadersAdapter extends BaseAdapter {
     	   
          return convertView;
      }
+	 static class ViewHolder{
+		 public  ImageView company;
+		 public  ImageView newCap;
+		 public TextView count;
+	 }
 
  }
 

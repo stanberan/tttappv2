@@ -54,7 +54,9 @@ this.inflater=inflater;
 personalDataLayout=(LinearLayout)rootView.findViewById(R.id.pd_layout);
 loader=(ImageView)rootView.findViewById(R.id.headers_loader);
 companyLayout=(LinearLayout) rootView.findViewById(R.id.cp_layout);
-startLoad();
+loader.setVisibility(View.GONE);
+//startLoad();
+//
 getCompanies();
 getPersonalData();
 	

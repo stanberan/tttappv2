@@ -17,6 +17,7 @@ import com.google.android.gms.games.request.Requests;
 import uk.ac.abdn.t3.t3v2app.AppController;
 import uk.ac.abdn.t3.t3v2app.Helpers;
 import uk.ac.abdn.t3.t3v2app.Loader;
+import uk.ac.abdn.t3.t3v2app.OverviewActivity;
 import uk.ac.abdn.t3.t3v2app.R;
 import uk.ac.abdn.t3.t3v2app.adapters.HeadersAdapter;
 import android.app.ProgressDialog;
@@ -28,6 +29,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -39,7 +42,7 @@ public class CapabilityFragment extends Fragment implements Loader {
 ListView elv;
 ImageView loader;
 TextView output;
-
+JSONArray children;
    LayoutInflater inflater;
 		public CapabilityFragment() {
 		}
@@ -56,7 +59,7 @@ TextView output;
 		loader=(ImageView)rootView.findViewById(R.id.headers_loader);
 		output=(TextView) rootView.findViewById(R.id.headers_output);
 		startLoad();
-		
+		output.setVisibility(View.GONE);
 		
 			getCapabilities();
 			
@@ -71,7 +74,7 @@ TextView output;
 		
 		public void getCapabilities(){
 			try{
-		Intent i=	getActivity().getIntent();
+		
 			
 				String getCapURL=AppController.HOST+"t3v2/1/device/"+AppController.DEV_ID+"/check/capabilities/"+AppController.UID;
 				
@@ -85,14 +88,45 @@ TextView output;
 				                    public void onResponse(JSONObject response) {
 				                        Log.d("SUCCESS", response.toString());
 				                        JSONObject sorted=response;
+				                      
+									
+				                        if(response.has("currentHeaders")){
+				                        	  try {
+													children=response.getJSONArray("sorted");
+													
 				                       HeadersAdapter ad=new HeadersAdapter(sorted,inflater,getActivity());
 				                     elv.setAdapter(ad);
-				                        try {
-											output.setText(response.toString(5));
-										} catch (JSONException e) {
+				                     if(response.has("different")&& response.getBoolean("different")){
+				                    	 ((OverviewActivity)getActivity()).addAccept();
+				                     }
+				                     
+				                        	  }   
+				                    	catch (JSONException e1) {
 											// TODO Auto-generated catch block
-											e.printStackTrace();
+											e1.printStackTrace();
 										}
+				                     elv.setOnItemClickListener(new OnItemClickListener() {
+
+				                         @Override
+				                         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				                                 long arg3) {
+				                             // TODO Auto-generated method stub
+				                             try {
+												Log.d("############","Item " + children.getJSONArray(arg2).toString(5) );
+											} catch (JSONException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+				                         }
+
+				                     });
+				                        }
+				                        else{
+				                        	output.setVisibility(View.VISIBLE);
+				                        	output.setText("No capabilities have been detected...");
+				                        }
+				                     
+				                       
 				                      stopLoad();
 				                    }
 				                }, new Response.ErrorListener() {

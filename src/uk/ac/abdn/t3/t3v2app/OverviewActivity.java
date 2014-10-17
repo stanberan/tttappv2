@@ -3,6 +3,7 @@ package uk.ac.abdn.t3.t3v2app;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import uk.ac.abdn.t3.t3v2app.fragments.AcceptDeclineFragment;
 import uk.ac.abdn.t3.t3v2app.fragments.CapabilityFragment;
 import uk.ac.abdn.t3.t3v2app.fragments.DeviceDescriptionFragment;
 import uk.ac.abdn.t3.t3v2app.fragments.PictorialFragment;
@@ -43,7 +44,7 @@ public class OverviewActivity extends ActionBarActivity {
 //LinearLayout personalDataLayout;
 //LinearLayout companyLayout;
 ImageView rotate;
-
+boolean newCapabilities=false;
 JSONArray personalData=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,11 @@ JSONArray personalData=null;
 		rotate.clearAnimation();
 	}
 	
-
+public void addAccept(){
+	getSupportFragmentManager().beginTransaction()
+	.add(R.id.button_frag, new AcceptDeclineFragment()).commit();
+	
+}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will

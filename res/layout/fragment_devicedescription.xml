@@ -36,11 +36,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
              android:ellipsize="end"
+             
 		android:maxLines="2"
-            android:gravity="center_horizontal"
-            android:text="No description"
-            android:textColor="@color/GhostWhite"
-            android:textSize="16sp"
+            android:gravity="center"
+            android:text="No information available about this device.."
+            android:textColor="@color/Ivory"
+            android:textSize="18sp"
            />
     </LinearLayout>
 </LinearLayout>
