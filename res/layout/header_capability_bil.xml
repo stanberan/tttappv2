@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+
+	<RelativeLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="#FFFFFF"
+	>
+		<ImageView
+		android:id="@+id/icon"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:padding="2dip"
+		android:src="@drawable/ic_bil"
+		android:contentDescription="Billing Capability"/>
+
+		<TextView
+			android:id="@+id/text_type"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		    android:text="Confidential Billing Capability "
+		    android:maxLines="2"
+		      android:lines="2"
+			android:textSize="15sp"
+			android:layout_alignBottom="@id/icon"
+			android:layout_alignTop="@id/icon"
+			android:layout_toRightOf="@id/icon"
+			android:layout_toEndOf="@id/icon"
+			android:gravity="center"
+			android:textStyle="bold"/>
+
+	
+		
+		<ImageView
+			android:id="@+id/image_bil_logo"
+			android:layout_width="45dip"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_toEndOf="@id/text_type"
+			android:layout_toRightOf="@id/text_type"
+			android:src="@drawable/ic_simbox"
+									/>
+		
+		<TextView
+			android:id="@+id/text_bil_count"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@id/image_bil_logo"
+				android:layout_toEndOf="@id/image_bil_logo"
+		    android:text="4"
+			android:textSize="15sp"
+			android:layout_alignBottom="@id/icon"
+			android:layout_alignTop="@id/icon"
+	
+			android:gravity="center"
+			android:textStyle="bold"/>
+		
+		
+		<ImageView
+			android:id="@+id/image_new_bil"
+			android:layout_width="18dp"
+			android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:layout_centerVertical="true"			
+			android:src="@drawable/ic_new"
+									/>
+		
+		
+		</RelativeLayout>
+		
+
+	
+	

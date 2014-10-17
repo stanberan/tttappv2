@@ -1,5 +1,7 @@
 package uk.ac.abdn.t3.t3v2app.fragments;
 
+import java.util.HashMap;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +18,7 @@ import uk.ac.abdn.t3.t3v2app.AppController;
 import uk.ac.abdn.t3.t3v2app.Helpers;
 import uk.ac.abdn.t3.t3v2app.Loader;
 import uk.ac.abdn.t3.t3v2app.R;
-import uk.ac.abdn.t3.t3v2app.adapters.CapabilitiesAdapter;
+import uk.ac.abdn.t3.t3v2app.adapters.HeadersAdapter;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Matrix;
@@ -82,9 +84,9 @@ TextView output;
 				                    @Override
 				                    public void onResponse(JSONObject response) {
 				                        Log.d("SUCCESS", response.toString());
-				                        JSONObject sorted=sortCapabilities(response);
-				                       // CapabilitiesAdapter ad=new CapabilitiesAdapter(sorted,inflater,getActivity());
-				                     //.setAdapter(ad);
+				                        JSONObject sorted=response;
+				                       HeadersAdapter ad=new HeadersAdapter(sorted,inflater,getActivity());
+				                     elv.setAdapter(ad);
 				                        try {
 											output.setText(response.toString(5));
 										} catch (JSONException e) {
@@ -140,84 +142,9 @@ TextView output;
 		}
 			
 
-		public JSONObject sortCapabilities(JSONObject allcapabilities){
-		try{
-			Log.e("CapFrag", "Capabiliities"+allcapabilities.toString());
-			JSONArray newcap=new JSONArray();
-			if(allcapabilities.has("newcapabilities")){
-				newcap=allcapabilities.getJSONArray("newcapabilities");
-			}
-			JSONArray jsonArray=allcapabilities.getJSONArray("currentCapabilities");
+		
 			
-			JSONObject sorted=new JSONObject();
-			JSONArray sharing=new JSONArray();
-			JSONArray collection=new JSONArray();
-			JSONArray usage=new JSONArray();
-			JSONArray generation=new JSONArray();
-			JSONArray billing=new JSONArray();
-			
-			
-			
-			for(int i=0; i<jsonArray.length();i++){
-				JSONObject capabilityjson=jsonArray.getJSONObject(i);
-				Log.e("CAPCURRENT", capabilityjson.toString() );
-				String type=capabilityjson.getString("type");
-				Log.e("TYPE", type);
-				Log.e("ALL",AppController.PDG_TYPE);
-				if(exist(capabilityjson,newcap)){
-					Log.e("EXIST", "CapExist");
-					capabilityjson.put("new", true);
-				}
-				
-				if(type.equals(AppController.BIL_TYPE)){
-					billing.put(capabilityjson);
-				}
-				else if(type.equals(AppController.PDC_TYPE)){
-					collection.put(capabilityjson);
-				}
-				else if(type.equals(AppController.PDG_TYPE)){
-					generation.put(capabilityjson);
-				}
-				else if(type.equals(AppController.PDU)){
-					usage.put(capabilityjson);
-				}
-				else if(type.equals(AppController.PDS_TYPE)){
-					sharing.put(capabilityjson);
-				}
-	
-				
-			}
-			if(sharing.length()>0){
-		//	sorted.put("sharingarray",sharing);
-			}
-			if(collection.length()>0){
-	//		sorted.put("collectionarray",collection);
-			}
-			if(usage.length()>0){
-			//sorted.put("usagearray", usage);
-			}
-			if(generation.length()>0){
-			sorted.put("generationarray", generation);
-			}
-			if(billing.length()>0){
-		//	sorted.put("billingarray", billing);
-			}
-			Log.e("OVERVIEW", sorted.toString());
-			return sorted;
-
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			JSONObject error=new JSONObject();
-			try {
-				error.put("error", e.getMessage());
-			} catch (JSONException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			return error;
-		}
-		}
+		
 
 		@Override
 		public void startLoad() {

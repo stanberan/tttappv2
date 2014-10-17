@@ -67,7 +67,7 @@ getPersonalData();
 	
 	
 public void getCompanies(){
-		
+	companyLayout.removeAllViews();
 		String tag_json_arry = "json_array_req";
 		String url = AppController.HOST+"t3v2/1/device/"+AppController.DEV_ID+"/companies";
 		JsonArrayRequest req = new JsonArrayRequest(url,
@@ -99,7 +99,7 @@ AppController.getInstance().addToRequestQueue(req, tag_json_arry);
 		String tag_json_arry = "json_array_req";
 		String url = AppController.HOST+"t3v2/1/device/"+AppController.DEV_ID+"/personaldata/all";
 		     
-     
+		personalDataLayout.removeAllViews();
 		JsonArrayRequest req = new JsonArrayRequest(url,
 		                new Response.Listener<JSONArray>() {
 		                    @Override
@@ -188,7 +188,7 @@ AppController.getInstance().addToRequestQueue(req, tag_json_arry);
     }
 	public void populatePDCView(JSONArray response){
 		personalData=response;
-		personalDataLayout.removeAllViews();
+		
 		
 		int pixels =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 
                 20, getResources().getDisplayMetrics());		
