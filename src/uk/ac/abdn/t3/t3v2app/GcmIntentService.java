@@ -12,6 +12,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -20,6 +21,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
@@ -82,22 +85,26 @@ public class GcmIntentService extends IntentService {
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendNotification(Bundle b) {
+    	 Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 Intent i=new Intent(this,OverviewActivity.class);
 //add extras from t3 server
 i.putExtras(b);
 i.putExtra("caller", "notification");
+i.addFlags( 
+	    Intent.FLA);
 //get times and display in not.
 long ms=Long.parseLong(b.getString("time"));
-String pattern="MM/dd/yyyy HH:mm:ss";
+String pattern="MM/dd/yyyy hh:mm:ss";
 String sent=DateFormat.format(pattern, new Date(ms)).toString();
 String received=DateFormat.format(pattern, new Date()).toString();
 
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 i, PendingIntent.FLAG_CANCEL_CURRENT);
-
+       
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -105,10 +112,13 @@ String received=DateFormat.format(pattern, new Date()).toString();
         .setLargeIcon(getBitmap(R.drawable.ic_launcher))
         .setContentTitle("New Capabilities Detected!")
         .setStyle(new NotificationCompat.BigTextStyle()
-        .bigText("Notification sent:"+sent+"\nNotification received:"+received))
-        .setContentText(b.getString("message"));
-
+        .bigText("We have detected new capabilities for your SIMBOX device. Please click on this notification to retrieve.\nNotificaton was sent:"+sent))
+        .setContentText(b.getString("message"))
+        .setSound(soundUri);
         mBuilder.setContentIntent(contentIntent);
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        Notification n=mBuilder.build();
+        n.flags |= Notification.FLAG_AUTO_CANCEL;
+        
+        mNotificationManager.notify(NOTIFICATION_ID, n);
     }
 }

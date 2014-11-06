@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+   <!--   android:background="@drawable/scan_a_tag" -->
+
+  
+
+          
+             <ProgressBar
+    android:id="@+id/progressBar1"
+    style="?android:attr/progressBarStyleLarge"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:indeterminate="true"
+    android:visibility="invisible"
+  
+    />
+        
+            <TextView 
+                android:id="@+id/catalogue_progress"
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+               android:background="@drawable/search_bg_shadow"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@+id/catalogue_list_view"
+                android:text="No Devices Have Been Found"/>
+      <ListView 
+          android:id="@id/catalogue_list_view"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          />
+          
+             
+        
+     
+
+    </RelativeLayout>

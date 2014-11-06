@@ -22,7 +22,7 @@
 			android:id="@+id/text_type"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-		    android:text="Confidential Billing Capability "
+		    android:text="Billing Capability "
 		    android:maxLines="2"
 		      android:lines="2"
 			android:textSize="15sp"
@@ -37,11 +37,11 @@
 		
 		<ImageView
 			android:id="@+id/image_bil_logo"
-			android:layout_width="45dip"
-			android:layout_height="wrap_content"
+			android:layout_width="50dip"
+			android:layout_height="50dip"
 			android:layout_gravity="center"
-			android:layout_toEndOf="@id/text_type"
-			android:layout_toRightOf="@id/text_type"
+		android:layout_toLeftOf="@+id/text_bil_count"
+		android:layout_centerVertical="true"
 			android:src="@drawable/ic_simbox"
 									/>
 		
@@ -49,8 +49,7 @@
 			android:id="@+id/text_bil_count"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_toRightOf="@id/image_bil_logo"
-				android:layout_toEndOf="@id/image_bil_logo"
+	android:layout_toLeftOf="@+id/image_new_bil"
 		    android:text="4"
 			android:textSize="15sp"
 			android:layout_alignBottom="@id/icon"

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-
-
 	<RelativeLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent"
@@ -15,14 +12,14 @@
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_vertical"
 		android:padding="2dip"
-		android:src="@drawable/ic_pdu"
-		android:contentDescription="Personal Data Usage Capability"/>
+		android:src="@drawable/ic_pds"
+		android:contentDescription="Personal Data Sharing Capability"/>
 
 		<TextView
 			android:id="@+id/text_type"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-		    android:text="Personal Data Usage"
+		    android:text="Personal Data Sharing"
 		    android:maxLines="2"
 		      android:lines="2"
 			android:textSize="15sp"
@@ -36,20 +33,19 @@
 	
 		
 		<ImageView
-			android:id="@+id/image_pdu_logo"
+			android:id="@+id/image_pds_logo"
 			android:layout_width="50dip"
 			android:layout_height="50dip"
-			android:layout_gravity="center"
-		android:layout_toLeftOf="@+id/text_pdu_count"
 			android:layout_centerVertical="true"
+			android:layout_toLeftOf="@+id/text_pds_count"
 			android:src="@drawable/ic_simbox"
 									/>
 		
 		<TextView
-			android:id="@+id/text_pdu_count"
+			android:id="@+id/text_pds_count"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_toLeftOf="@+id/image_new_pdu"
+			android:layout_toLeftOf="@+id/image_new_pds"
 		    android:text="4"
 			android:textSize="15sp"
 			android:layout_alignBottom="@id/icon"
@@ -60,7 +56,7 @@
 		
 		
 		<ImageView
-			android:id="@+id/image_new_pdu"
+			android:id="@+id/image_new_pds"
 			android:layout_width="18dp"
 			android:layout_height="wrap_content"
 		    android:layout_alignParentRight="true"

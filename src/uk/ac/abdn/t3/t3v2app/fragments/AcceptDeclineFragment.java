@@ -8,6 +8,7 @@ import uk.ac.abdn.t3.t3v2app.AppController;
 import uk.ac.abdn.t3.t3v2app.Dialogs;
 import uk.ac.abdn.t3.t3v2app.Helpers;
 import uk.ac.abdn.t3.t3v2app.JSONHandler;
+import uk.ac.abdn.t3.t3v2app.OverviewActivity;
 import uk.ac.abdn.t3.t3v2app.R;
 
 import android.os.Bundle;
@@ -59,14 +60,18 @@ decline=(TextView)rootView.findViewById(R.id.cancel_button);
 	
 	public void accept(){
 	Helpers.requestGetJSON(acceptURL, this);
+	Dialogs.showDialog("Your newly accepted capabilities have been saved.", getActivity(),"Accept Response");	
+	}
+	public void decline(){
+		Helpers.requestGetJSON(acceptURL, this);
+		Dialogs.showDialog("Thank you, the appropriate service agents have been informed about your disagreement.", getActivity(),"Decline Response");
 		
 	}
-	public void decline(){}
 	
 
 	@Override
 	public void parseJson(JSONObject j) throws Exception {
-		
+		 ((OverviewActivity)getActivity()).removeAccept();
 	}
 	
 

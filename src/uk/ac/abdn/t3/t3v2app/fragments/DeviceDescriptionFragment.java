@@ -93,6 +93,9 @@ JSONObject result=null;
 				// TODO Auto-generated method stub
 				result=j;
 				}
+				else{
+					description.setText("Response is null");
+				}
 				stopLoad();
 			}
 	

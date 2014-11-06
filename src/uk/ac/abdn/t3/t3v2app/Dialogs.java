@@ -3,6 +3,8 @@ package uk.ac.abdn.t3.t3v2app;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import uk.ac.abdn.t3.t3v2app.adapters.DetailsAdapter;
+
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -18,6 +20,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +82,29 @@ public class Dialogs {
 		dialog.show();
 	}
 	
+	public static void showDialog(String data, Context c,String title){
+		// 1. Instantiate an AlertDialog.Builder with its constructor
+		AlertDialog.Builder builder = new AlertDialog.Builder(c);
+
+		// 2. Chain together various setter methods to set the dialog characteristics
+		builder.setMessage(data)
+		       .setTitle(title).setPositiveButton("I understand", null);
+		//TODO hard coded personal data title
+
+		// 3. Get the AlertDialog from create()
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+	
+	public static void showDetails(DetailsAdapter ad,Context c){
+		 final Dialog dialog = new Dialog(c);
+			dialog.setContentView(R.layout.details_list);
+			dialog.setTitle("Capability Details List");
+			dialog.setCanceledOnTouchOutside(true);
+			ListView l=(ListView) dialog.findViewById(R.id.listview_details);
+			l.setAdapter(ad);
+			dialog.show();
+	}
 	
 public static void getDescriptionDialog(JSONObject res, Context c){
 	if(res==null){

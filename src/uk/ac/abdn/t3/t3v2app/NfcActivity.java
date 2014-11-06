@@ -30,6 +30,7 @@ import android.os.Build;
 public class NfcActivity extends ActionBarActivity {
 String urlAction="";
 static String uid;
+String registerURL="http://t3.abdn.ac.uk:8080/t3v2/1/user/register/device/";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,7 +54,8 @@ static String uid;
 		if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
 		
 			String scheme = i.getScheme();
-			if (scheme.equals("http")) {
+			Log.e("SCHEME", scheme);
+			if (scheme.equals("t3tp")) {
 				Tag tag = i.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 				Ndef ndef = Ndef.get(tag);
 				if (ndef == null) {
@@ -86,17 +88,22 @@ static String uid;
 				}
 				else{
 				urlAction=ndefrecord.toUri().toString();
-				if(urlAction.contains("http://t3.abdn.ac.uk/t3v2/1/device/")){
+			//	if(urlAction.contains("t3.abdn.ac.uk/t3v2/1/device/")){
 					Log.e("NFC", "FOUND intent starting....");
 				Intent s=new Intent(this,OverviewActivity.class);
 				Log.e("found", "Starting activity to get capailities.");
 				s.putExtra("caller","nfc");
 				
-				String devid=urlAction.substring(35);	
+				String devid=urlAction.substring(33);
+				Log.e("ID", devid);
 				AppController.DEV_ID=devid;
+				Log.e("GLOBAL DEVID", "DEVID assigned:"+devid);
 				s.putExtra("devid", devid);
+				//register this device with user
+				Helpers.requestGet(registerURL+AppController.UID+"/"+devid);
+				
 				startActivity(s);
-				}
+			//	}
 				}
 			}}
 	}

@@ -30,7 +30,8 @@
     <ListView
 	android:id="@+id/headers_list"
 	android:layout_width="match_parent"
-	
+	android:divider="@android:color/transparent"
+  android:dividerHeight="5.0sp"
 	android:layout_height="match_parent">
 
 </ListView>

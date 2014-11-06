@@ -36,10 +36,10 @@
 		
 		<ImageView
 			android:id="@+id/image_pdg_logo"
-			android:layout_width="45dip"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:layout_toRightOf="@id/text_type"
+			android:layout_width="50dip"
+			android:layout_height="50dip"
+			android:layout_centerVertical="true"
+			android:layout_toLeftOf="@+id/text_pdg_count"
 			android:src="@drawable/ic_simbox"
 									/>
 		
@@ -47,7 +47,7 @@
 			android:id="@+id/text_pdg_count"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_toRightOf="@id/image_pdg_logo"
+			android:layout_toLeftOf="@+id/image_new"
 		    android:text="4"
 			android:textSize="15sp"
 			android:layout_alignBottom="@id/icon"

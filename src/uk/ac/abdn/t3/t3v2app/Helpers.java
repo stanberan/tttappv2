@@ -59,6 +59,43 @@ public class Helpers {
 		
 		
 	}
+public static void requestGet(final String url) {
+	
+		JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+			    new Response.Listener<JSONObject>() 
+			    {
+			        @Override
+			        public void onResponse(JSONObject response) {   
+			                        // display response     
+			           try {
+			        	   Log.e("Success", url+response.toString());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			        }
+			    }, 
+			    new Response.ErrorListener() 
+			    {
+			         @Override
+			         public void onErrorResponse(VolleyError error) {            
+			            Log.e("Error.Response", error.getMessage());
+			            error.printStackTrace();
+			            try {
+					
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			       }
+			    }
+			);
+			 
+		AppController.getInstance().addToRequestQueue(getRequest);
+		
+		
+	}
+	
 	
 	
 	

@@ -46,6 +46,7 @@ public class OverviewActivity extends ActionBarActivity {
 ImageView rotate;
 boolean newCapabilities=false;
 JSONArray personalData=null;
+AcceptDeclineFragment accFrag;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,6 +55,11 @@ JSONArray personalData=null;
 		//companyLayout=(LinearLayout)findViewById(R.id.companies_container);
 	
 	//	rotate.setVisibility(View.GONE);
+		
+		String devid=getIntent().getStringExtra("devid");
+		AppController.DEV_ID=devid;
+		String caller=getIntent().getStringExtra("caller");
+		Log.e("Tag", devid+caller);
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 			.add(R.id.description_frag, new DeviceDescriptionFragment()).commit();
@@ -66,9 +72,7 @@ JSONArray personalData=null;
 		
 		
 	
-		String devid=getIntent().getStringExtra("devid");
-		String caller=getIntent().getStringExtra("caller");
-		Log.e("Tag", devid+caller);
+	
 	
 	
 		
@@ -93,8 +97,14 @@ JSONArray personalData=null;
 	}
 	
 public void addAccept(){
+	accFrag=new AcceptDeclineFragment();
 	getSupportFragmentManager().beginTransaction()
-	.add(R.id.button_frag, new AcceptDeclineFragment()).commit();
+	.add(R.id.button_frag, accFrag).commit();
+	
+}
+public void removeAccept(){
+	getSupportFragmentManager().beginTransaction()
+	.remove(accFrag).commit();
 	
 }
 	@Override

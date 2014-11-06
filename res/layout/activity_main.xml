@@ -8,13 +8,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/main_output_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Empty" />
-
-    
+   <FrameLayout android:id="@+id/scan_tag_frag_holder"
+        		android:layout_width="match_parent"
+        		android:layout_height="wrap_content"        		
+        		android:background="@color/white"/>
     
     
     

@@ -15,10 +15,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.games.request.Requests;
 
 import uk.ac.abdn.t3.t3v2app.AppController;
+import uk.ac.abdn.t3.t3v2app.Dialogs;
 import uk.ac.abdn.t3.t3v2app.Helpers;
 import uk.ac.abdn.t3.t3v2app.Loader;
 import uk.ac.abdn.t3.t3v2app.OverviewActivity;
 import uk.ac.abdn.t3.t3v2app.R;
+import uk.ac.abdn.t3.t3v2app.adapters.DetailsAdapter;
 import uk.ac.abdn.t3.t3v2app.adapters.HeadersAdapter;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -112,8 +114,10 @@ JSONArray children;
 				                                 long arg3) {
 				                             // TODO Auto-generated method stub
 				                             try {
-												Log.d("############","Item " + children.getJSONArray(arg2).toString(5) );
-											} catch (JSONException e) {
+							JSONArray ar =children.getJSONArray(arg2);
+							DetailsAdapter ad=new DetailsAdapter(ar,inflater,CapabilityFragment.this.getActivity());
+											Dialogs.showDetails(ad,CapabilityFragment.this.getActivity());
+				                             } catch (JSONException e) {
 												// TODO Auto-generated catch block
 												e.printStackTrace();
 											}

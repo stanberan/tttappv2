@@ -59,7 +59,7 @@ public class HeadersAdapter extends BaseAdapter {
 	}
 
 	public int getViewTypeCount() {
-		return 5;
+		return 6;
 		
 	}
 
@@ -154,7 +154,7 @@ public class HeadersAdapter extends BaseAdapter {
         	 boolean isnew=headers.getJSONObject(position).has("new");
         	 Log.e("Check values", ""+length+" "+logo+"isnew"+isnew);
         holder.count.setText(String.valueOf(length));
-        Picasso.with(c).load(headers.getJSONObject(position).getString("company_logo")).fit().placeholder(R.drawable.ic_new).into(holder.company);
+        Picasso.with(c).load(logo).placeholder(R.drawable.ic_new).into(holder.company);
        if(headers.getJSONObject(position).has("new")){
     	holder.newCap.setVisibility(View.VISIBLE);   
        }

@@ -97,11 +97,12 @@ AppController.getInstance().addToRequestQueue(req, tag_json_arry);
 	}
 		
 	public void getPersonalData(){
-		Log.e("PDC", "CLICKED");
+		personalDataLayout.removeAllViews();
+		Log.e("Personal", "Removed Before Load");
 		String tag_json_arry = "json_array_req";
 		String url = AppController.HOST+"t3v2/1/device/"+AppController.DEV_ID+"/personaldata/all";
 		     
-		personalDataLayout.removeAllViews();
+	
 		JsonArrayRequest req = new JsonArrayRequest(url,
 		                new Response.Listener<JSONArray>() {
 		                    @Override
