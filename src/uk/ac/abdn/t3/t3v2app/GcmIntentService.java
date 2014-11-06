@@ -94,7 +94,7 @@ Intent i=new Intent(this,OverviewActivity.class);
 i.putExtras(b);
 i.putExtra("caller", "notification");
 i.addFlags( 
-	    Intent.FLA);
+	    Intent.FLAG_ACTIVITY_NEW_TASK);
 //get times and display in not.
 long ms=Long.parseLong(b.getString("time"));
 String pattern="MM/dd/yyyy hh:mm:ss";
